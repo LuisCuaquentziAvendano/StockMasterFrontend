@@ -1,0 +1,15 @@
+@mixin flex-horizontal($horizontal-distribution, $vertical-distribution, $gap: 0) {
+    display: flex;
+    flex-direction: row;
+    justify-content: $horizontal-distribution;
+    align-items: $vertical-distribution;
+    gap: $gap;
+}
+
+@mixin flex-vertical($horizontal-distribution, $vertical-distribution, $gap: 0) {
+    display: flex;
+    flex-direction: column;
+    justify-content: $vertical-distribution;
+    align-items: $horizontal-distribution;
+    gap: $gap;
+}

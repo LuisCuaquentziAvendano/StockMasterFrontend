@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-inventories',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './inventories.component.html',
+  styleUrl: './inventories.component.scss'
 })
-export class AppComponent {
-  constructor() {}
+export class InventoriesComponent {
+
 }
