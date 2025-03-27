@@ -7,6 +7,7 @@ import { ALERT_ICONS, showMessageAlert } from "./alerts";
 export function responseHandler(response: HttpResponse<any>, router: Router, authService: AuthenticationService) {
     if (response.status == HTTP_STATUS_CODES.UNAUTHORIZED) {
         authService.logout();
+        authService.setRedirectUrl(router.url);
         router.navigateByUrl('/login');
     } else if (response.status == HTTP_STATUS_CODES.FORBIDDEN) {
         router.navigateByUrl('/forbidden');

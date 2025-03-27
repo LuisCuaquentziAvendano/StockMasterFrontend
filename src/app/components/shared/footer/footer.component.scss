@@ -1,0 +1,34 @@
+@import "../../../utils/styles.scss";
+
+footer {
+    @include flex-horizontal(space-evenly, center, 1rem);
+    background-color: $BG_DARK;
+    padding: 2rem;
+
+    div {
+        @include flex-vertical(center, center, 2rem);
+
+        div:has(a) {
+            gap: 2rem;
+        }
+
+        div:has(img) {
+            gap: 1rem;
+        }
+
+        p {
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: cover;
+            width: 2.5rem;
+            cursor: pointer;
+        }
+    }
+}

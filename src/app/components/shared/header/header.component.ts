@@ -24,7 +24,6 @@ export class HeaderComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.location = event.url;
-        console.log(this.location);
       }
     });
   }
