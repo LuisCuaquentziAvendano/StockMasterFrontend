@@ -1,0 +1,53 @@
+@import "../../../utils/styles.scss";
+
+main {
+    @include flex-horizontal(center, center);
+    margin: 2rem 0 4rem 0;
+
+    form {
+        @include flex-vertical(center, center, 2rem);
+
+        div {
+            @include flex-horizontal(center, center, 1rem);
+
+            input {
+                width: 20rem;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+            }
+        }
+
+        button, > a {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            color: white;
+        }
+
+        a {
+            text-align: center;
+        }
+    }
+}
+
+.login {
+    background-color: $PRIMARY_MID;
+}
+
+.sign-up {
+    background-color: $PRIMARY_MID;
+}
+
+.login-google {
+    background-color: $SECONDARY_MID;
+    text-decoration: none;
+}
+
+.icon {
+    @include icon-style(2rem, white);
+}
+
+.is-invalid {
+    background-color: $DANGER_LIGHT;
+}

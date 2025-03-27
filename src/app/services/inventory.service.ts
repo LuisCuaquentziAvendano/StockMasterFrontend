@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment.development';
 import { HttpResponse } from '@angular/common/http';
 import { Inventory } from '../types/inventory';
 import { AuthenticationService } from './authentication.service';
-import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import { forkJoin, map, of, switchMap } from 'rxjs';
 import { User } from '../types/user';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class InventoryService {
     });
   }
 
-  getById(id: string) {
+  getById(id: string, includeRoles: boolean) {
     return this.httpService.get<HttpResponse<Inventory>>({
       url: `${environment.BASE_URL}/inventories/getInventory`,
       headers: {
@@ -32,22 +32,22 @@ export class InventoryService {
         inventory: id,
       },
     }).pipe(
-      switchMap((response: any) => {
-        if (!response.ok) {
-          return response;
+      switchMap(response => {
+        if (!response.ok || !includeRoles) {
+          return of(response);
         }
-        const newInventory = this.formatData(response.body);
+        const newInventory = this.formatData(response.body!);
         return forkJoin({
           inventory: of(newInventory),
-          roles: this.getPermissions(newInventory.id),
+          response: this.getPermissions(newInventory.id),
         }).pipe(
-          map(({ inventory, roles }) => {
-            inventory.roles = roles.body!;
+          map(({ inventory, response }) => {
+            inventory.roles = response.body!;
             return { ...response, body: inventory };
           })
         );
       })
-    ) as Observable<HttpResponse<Inventory>>;
+    );
   }
 
   private getPermissions(id: string) {
@@ -57,28 +57,25 @@ export class InventoryService {
         authorization: this.authService.getToken(),
         inventory: id,
       },
-    }).pipe(map(response => {
-        if (!response.ok) {
-          return response;
-        }
-        return response;
-    }));
+    });
   }
 
   getByUser() {
     return this.httpService.get<HttpResponse<Inventory[]>>({
       url: `${environment.BASE_URL}/users/getInventories`,
       headers: { authorization: this.authService.getToken() },
-    }).pipe(map(response => {
-      if (!response.ok) {
-        return response;
-      }
-      const newInventories = response.body?.map(inventory => this.formatData(inventory));
-      return {
-        ...response,
-        body: newInventories,
-      };
-    }));
+    }).pipe(
+      map(response => {
+        if (!response.ok) {
+          return response;
+        }
+        const newInventories = response.body?.map(inventory => this.formatData(inventory));
+        return {
+          ...response,
+          body: newInventories,
+        };
+      })
+    );
   }
 
   updateData(id: string, name: string) {

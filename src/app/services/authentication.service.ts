@@ -45,12 +45,22 @@ export class AuthenticationService {
   }
 
   getToken() {
-    return localStorage.getItem('authorization') as string;
+    return localStorage.getItem('authorization') || '';
   }
 
   private setToken(authorization: string) {
     this._isAuthenticated.next(true);
     localStorage.setItem('authorization', `Bearer ${authorization}`);
+  }
+
+  getRedirectUrl() {
+    const redirectTo = sessionStorage.getItem('redirectTo') || '';
+    this.setRedirectUrl('');
+    return redirectTo;
+  }
+
+  setRedirectUrl(redirectTo: string) {
+    sessionStorage.setItem('redirectTo', redirectTo);
   }
 }
 

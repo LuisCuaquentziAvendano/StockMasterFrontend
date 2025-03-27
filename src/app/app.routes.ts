@@ -45,7 +45,7 @@ export const routes: Routes = [
     { path: 'notifications', component: NotificationsComponent, canActivate: [AuthenticationGuard], },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard], },
     { path: 'forbidden', component: ForbiddenComponent, },
-    { path: 'not-found', component: ForbiddenComponent, },
+    { path: 'not-found', component: NotFoundComponent, },
     { path: 'server-error', component: ServerErrorComponent, },
     { path: '**', component: NotFoundComponent, },
 ];
