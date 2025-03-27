@@ -18,32 +18,53 @@ import { ROLES } from './utils/roles';
 import { ServerErrorComponent } from './components/pages/server-error/server-error.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'about-us', component: AboutUsComponent },
+    {
+        path: '',
+        component: HomeComponent,
+        canActivate: [AuthenticationGuard(false)],
+    },
+    {
+        path: 'about-us',
+        component: AboutUsComponent,
+        canActivate: [AuthenticationGuard(false)],
+    },
     { path: 'login', component: LoginComponent },
-    { path: 'inventories', component: InventoriesComponent, canActivate: [AuthenticationGuard], children: [
-        { path: '', component: InventoriesListComponent },
-        { path: ':id/schema', component: InventorySchemaComponent, },
-        { path: ':id/products', component: InventoryProductsComponent },
-        {
-            path: ':id/sales',
-            component: InventorySalesComponent,
-            canActivate: [RoleGuard],
-            data: {
-                roles: [ROLES.ADMIN, ROLES.STOCK],
+    {
+        path: 'inventories',
+        component: InventoriesComponent,
+        canActivate: [AuthenticationGuard(true)],
+        children: [
+            { path: '', component: InventoriesListComponent },
+            { path: ':id/schema', component: InventorySchemaComponent, },
+            { path: ':id/products', component: InventoryProductsComponent },
+            {
+                path: ':id/sales',
+                component: InventorySalesComponent,
+                canActivate: [RoleGuard],
+                data: {
+                    roles: [ROLES.ADMIN, ROLES.STOCK],
+                },
             },
-        },
-        {
-            path: ':id/settings',
-            component: InventorySettingsComponent,
-            canActivate: [RoleGuard],
-            data: {
-                roles: [ROLES.ADMIN]
+            {
+                path: ':id/settings',
+                component: InventorySettingsComponent,
+                canActivate: [RoleGuard],
+                data: {
+                    roles: [ROLES.ADMIN],
+                },
             },
-        },
-    ], },
-    { path: 'notifications', component: NotificationsComponent, canActivate: [AuthenticationGuard], },
-    { path: 'profile', component: ProfileComponent, canActivate: [AuthenticationGuard], },
+        ],
+    },
+    {
+        path: 'notifications',
+        component: NotificationsComponent,
+        canActivate: [AuthenticationGuard(true)],
+    },
+    {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthenticationGuard(true)],
+    },
     { path: 'forbidden', component: ForbiddenComponent, },
     { path: 'not-found', component: NotFoundComponent, },
     { path: 'server-error', component: ServerErrorComponent, },

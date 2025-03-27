@@ -3,7 +3,7 @@
         <h1>Welcome to Stock Master</h1>
         @if (!isLogin) {
           <div>
-              <mat-icon class="icon">person_pin</mat-icon>
+              <mat-icon>person_pin</mat-icon>
               <input [ngClass]="{ 'is-invalid': isInvalidField('name') }"
                 placeholder="Name"
                 type="text"
@@ -12,7 +12,7 @@
           </div>
         }
         <div>
-            <mat-icon class="icon">email</mat-icon>
+            <mat-icon>email</mat-icon>
             <input [ngClass]="{ 'is-invalid': isInvalidField('email') }"
               placeholder="Email"
               type="email"
@@ -20,7 +20,7 @@
               autocomplete="email">
         </div>
         <div>
-            <mat-icon class="icon">lock</mat-icon>
+            <mat-icon>lock</mat-icon>
             <input [ngClass]="{ 'is-invalid': isInvalidField('password') }"
               placeholder="Password"
               type="password"
@@ -29,7 +29,7 @@
         </div>
         @if (!isLogin) {
           <div>
-            <mat-icon class="icon">lock</mat-icon>
+            <mat-icon>lock</mat-icon>
             <input [ngClass]="{ 'is-invalid': isInvalidPasswordMatch('password', 'confirmPassword') }"
               placeholder="Confirm password"
               type="password"

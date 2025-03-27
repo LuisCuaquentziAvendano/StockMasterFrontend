@@ -19,13 +19,14 @@ export class AuthenticationService {
     });
   }
 
-  login(email: string, password: string) {
+  login(email?: string, password?: string) {
     return this.httpService.post<HttpResponse<LoginResponse>>({
       url: `${environment.BASE_URL}/users/login`,
       body: { email, password, },
     }).pipe(map(response => {
         if (response.ok) {
           this.setToken(response.body?.authorization as string);
+          this._isAuthenticated.next(true);
         }
         return response;
     }));
@@ -41,7 +42,9 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return !!this.getToken();
+    const isAuth = !!this.getToken();
+    this._isAuthenticated.next(isAuth);
+    return isAuth;
   }
 
   getToken() {
@@ -49,8 +52,7 @@ export class AuthenticationService {
   }
 
   private setToken(authorization: string) {
-    this._isAuthenticated.next(true);
-    localStorage.setItem('authorization', `Bearer ${authorization}`);
+    localStorage.setItem('authorization', authorization ? `Bearer ${authorization}` : '');
   }
 
   getRedirectUrl() {

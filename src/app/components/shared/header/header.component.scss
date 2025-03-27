@@ -1,0 +1,43 @@
+@import "../../../utils/styles.scss";
+
+nav {
+    @include flex-vertical(center, space-evenly);
+    background-color: $BG_DARK;
+    height: 10rem;
+    padding: 0 1rem 1rem 1rem;
+
+    a {
+        @include flex-horizontal(space-evenly, center, 1rem);
+
+        h1 {
+            font-size: xx-large;
+        }
+
+        img {
+            width: 4rem;
+        }
+    }
+
+    div {
+        width: 100%;
+        @include flex-horizontal(space-evenly, center, 1rem);
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover, a:focus {
+            text-decoration: underline;
+        }
+    }
+
+    div:has(img) {
+        justify-content: center;
+    }
+}
+
+nav div a.selected {
+    color: $PRIMARY_LIGHT;
+    text-decoration: underline;
+}

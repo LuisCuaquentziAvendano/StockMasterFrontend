@@ -10,6 +10,10 @@ main {
         div {
             @include flex-horizontal(center, center, 1rem);
 
+            mat-icon {
+                @include icon-style(2rem, white);
+            }
+
             input {
                 width: 20rem;
                 padding: 0.5rem;
@@ -28,6 +32,10 @@ main {
         a {
             text-align: center;
         }
+
+        a:hover, a:focus {
+            text-decoration: underline;
+        }
     }
 }
 
@@ -39,13 +47,13 @@ main {
     background-color: $PRIMARY_MID;
 }
 
-.login-google {
+main form a.login-google {
     background-color: $SECONDARY_MID;
     text-decoration: none;
-}
 
-.icon {
-    @include icon-style(2rem, white);
+    :hover, :focus {
+        text-decoration: none;
+    }
 }
 
 .is-invalid {

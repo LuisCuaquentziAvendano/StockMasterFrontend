@@ -1,1 +1,24 @@
-<p>header works!</p>
+<nav>
+  <a (click)="goToUrl()">
+    <img src=".../../../../../../assets/stock-master.png" alt="">
+    <h1>Stock Master</h1>
+  </a>
+  <div>
+    @if (isAuthenticated) {
+      <a [routerLink]="'/inventories'"
+        [ngClass]="{ 'selected': location.startsWith('/inventories') }">INVENTORIES</a>
+      <a [routerLink]="'/notifications'"
+        [ngClass]="{ 'selected': location == '/notifications' }">NOTIFICATIONS</a>
+      <a [routerLink]="'/profile'"
+        [ngClass]="{ 'selected': location == '/profile' }">PROFILE</a>
+      <a (click)="logout()">LOGOUT</a>
+    } @else {
+      <a [routerLink]="'/'"
+        [ngClass]="{ 'selected': location == '/' }">HOME</a>
+      <a [routerLink]="'/about-us'"
+        [ngClass]="{ 'selected': location == '/about-us' }">ABOUT US</a>
+      <a [routerLink]="'/login'"
+        [ngClass]="{ 'selected': location == '/login' }">LOGIN</a>
+    }
+  </div>
+</nav>

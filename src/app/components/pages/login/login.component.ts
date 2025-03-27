@@ -34,6 +34,9 @@ export class LoginComponent {
     private authService: AuthenticationService,
     private router: Router
   ) {
+    if (authService.isAuthenticated()) {
+      this.goToUrl();
+    }
     this.changeIsLogin();
   }
 
@@ -58,12 +61,7 @@ export class LoginComponent {
     this.authService.login(userData.email, userData.password)
     .subscribe(response => {
       if (response.ok) {
-        const redirectUrl = this.authService.getRedirectUrl();
-        if (redirectUrl) {
-          this.router.navigateByUrl(redirectUrl);
-        } else {
-          this.router.navigateByUrl('/inventories');
-        }
+        this.goToUrl();
       } else if (response.status == HTTP_STATUS_CODES.UNAUTHORIZED) {
         showMessageAlert(
           'Error',
@@ -117,5 +115,14 @@ export class LoginComponent {
 
   googleAuthUrl() {
     return this.authService.googleAuthUrl();
+  }
+
+  private goToUrl() {
+    const redirectUrl = this.authService.getRedirectUrl();
+    if (redirectUrl) {
+      this.router.navigateByUrl(redirectUrl);
+    } else {
+      this.router.navigateByUrl('/inventories');
+    }
   }
 }

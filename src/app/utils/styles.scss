@@ -20,6 +20,7 @@ $DANGER_LIGHT: #fdaa99;
     justify-content: $horizontal-distribution;
     align-items: $vertical-distribution;
     gap: $gap;
+    flex-wrap: wrap;
 }
 
 @mixin flex-vertical($horizontal-distribution, $vertical-distribution, $gap: 0) {
@@ -28,6 +29,7 @@ $DANGER_LIGHT: #fdaa99;
     justify-content: $vertical-distribution;
     align-items: $horizontal-distribution;
     gap: $gap;
+    flex-wrap: wrap;
 }
 
 @mixin icon-style($size, $color) {
