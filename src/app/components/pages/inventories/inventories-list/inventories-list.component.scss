@@ -1,0 +1,42 @@
+@import "../../../../utils/styles.scss";
+
+section {
+    @include flex-horizontal(center, center, 3rem);
+    padding: 3rem;
+
+    div {
+        @include flex-horizontal(center, center, 5rem);
+
+        div {
+            @include flex-vertical(center, center, 1rem);
+            width: 10rem;
+            border: 1px $BORDER solid;
+            border-radius: 1rem;
+            padding: 1rem;
+
+            p {
+                margin: 0;
+            }
+
+            img {
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+                background-color: $PRIMARY_MID;
+                color: white;
+            }
+        }
+    }
+
+    button {
+        @include flex-horizontal(center, center);
+        background-color: $SUCCESS_DARK;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        color: white;
+    }
+}

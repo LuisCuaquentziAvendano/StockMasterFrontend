@@ -1,0 +1,18 @@
+@import "../../../utils/styles.scss";
+
+section {
+    @include flex-horizontal(space-evenly, center, 1rem);
+    background-color: $PRIMARY_DARK;
+    padding: 2rem;
+    border-top: 1px $BORDER solid;
+    border-bottom: 1px $BORDER solid;
+
+    a:hover, a:focus {
+        text-decoration: underline;
+    }
+}
+
+section a.selected {
+    color: $PRIMARY_LIGHT;
+    text-decoration: underline;
+}

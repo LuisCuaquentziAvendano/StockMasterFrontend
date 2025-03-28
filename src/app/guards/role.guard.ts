@@ -12,7 +12,7 @@ export const RoleGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
   const inventoryService = inject(InventoryService);
   const id = route.paramMap.get('id') as string;
-  const response = await lastValueFrom(inventoryService.getById(id, true));
+  const response = await lastValueFrom(inventoryService.getById(id, false));
   if (!response.ok) {
     responseHandler(response as HttpResponse<Inventory>, router, authService);
     return false;

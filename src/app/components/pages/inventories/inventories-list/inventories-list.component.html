@@ -1,1 +1,16 @@
-<p>inventories-list works!</p>
+<section>
+  <div>
+    @for(inventory of inventories; track inventory.id) {
+      <div>
+        <p>{{inventory.name}}</p>
+        <img src="../../../../../assets/inventory.webp" alt="inventory">
+        <p>Role: {{inventory.myRole}}</p>
+        <button (click)="goToInventory(inventory)">Go to inventory</button>
+      </div>
+    }
+  </div>
+  <button (click)="createInventory()">
+    <mat-icon>add</mat-icon>
+    <span>Create inventory</span>
+  </button>
+</section>

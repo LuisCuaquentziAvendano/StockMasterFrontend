@@ -11,6 +11,8 @@ import { User } from '../types/user';
   providedIn: 'root'
 })
 export class InventoryService {
+  private cache = new Map();
+
   constructor(
     private httpService: HttpService,
     private authService: AuthenticationService
@@ -33,17 +35,20 @@ export class InventoryService {
       },
     }).pipe(
       switchMap(response => {
-        if (!response.ok || !includeRoles) {
+        if (!response.ok) {
           return of(response);
         }
         const newInventory = this.formatData(response.body!);
+        if (!includeRoles) {
+          return of({ ...response, body: newInventory } as HttpResponse<Inventory>);
+        }
         return forkJoin({
           inventory: of(newInventory),
           response: this.getPermissions(newInventory.id),
         }).pipe(
           map(({ inventory, response }) => {
             inventory.roles = response.body!;
-            return { ...response, body: inventory };
+            return { ...response, body: inventory } as HttpResponse<Inventory>;
           })
         );
       })
@@ -73,7 +78,7 @@ export class InventoryService {
         return {
           ...response,
           body: newInventories,
-        };
+        } as HttpResponse<Inventory[]>;
       })
     );
   }
