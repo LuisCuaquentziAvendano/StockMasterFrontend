@@ -4,6 +4,7 @@ import { HttpService } from './http.service';
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment.development';
 import { HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class ProductService {
     });
   }
 
-  getById(inventoryId: string, productId: string) {
+  getById(inventoryId: string, productId: string): Observable<HttpResponse<Product>> {
     return this.httpService.get<HttpResponse<Product>>({
       url: `${environment.BASE_URL}/products/getProductById`,
       headers: {
@@ -36,7 +37,7 @@ export class ProductService {
     });
   }
 
-  getByQuery(inventoryId: string, query: string, page: number) {
+  getByQuery(inventoryId: string, query: string, page: number): Observable<HttpResponse<Product[]>> {
     return this.httpService.get<HttpResponse<Product[]>>({
       url: `${environment.BASE_URL}/products/getProductsByQuery`,
       headers: {

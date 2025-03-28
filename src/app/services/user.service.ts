@@ -4,6 +4,7 @@ import { User } from '../types/user';
 import { environment } from '../../environments/environment.development';
 import { HttpService } from './http.service';
 import { AuthenticationService } from './authentication.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UserService {
     private authService: AuthenticationService
   ) {}
 
-  getData() {
+  getData(): Observable<HttpResponse<User>> {
     return this.httpService.get<HttpResponse<User>>({
       url: `${environment.BASE_URL}/users/getData`,
       headers: { authorization: this.authService.getToken() },

@@ -8,7 +8,7 @@ import { map, catchError, of, Observable } from 'rxjs';
 export class HttpService {
   constructor(private httpClient: HttpClient) {}
 
-  post<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams) {
+  post<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams): Observable<T> {
     return this.httpClient.post(
       requestParams.url,
       requestParams.body,
@@ -23,10 +23,10 @@ export class HttpService {
         response.body = { error: response.error?.error };
         return of(response);
       }),
-    ) as Observable<T>;
+    );
   }
 
-  get<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams) {
+  get<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams): Observable<T> {
     return this.httpClient.get(
       requestParams.url,
       {
@@ -40,10 +40,10 @@ export class HttpService {
         response.body = { error: response.error?.error };
         return of(response);
       }),
-    ) as Observable<T>;
+    );
   }
 
-  put<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams) {
+  put<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams): Observable<T> {
     return this.httpClient.put(
       requestParams.url,
       requestParams.body,
@@ -58,10 +58,10 @@ export class HttpService {
         response.body = { error: response.error?.error };
         return of(response);
       }),
-    ) as Observable<T>;
+    );
   }
 
-  delete<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams) {
+  delete<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams): Observable<T> {
     return this.httpClient.delete(
       requestParams.url,
       {
@@ -76,7 +76,7 @@ export class HttpService {
         response.body = { error: response.error?.error };
         return of(response);
       }),
-    ) as Observable<T>;
+    );
   }
 }
 

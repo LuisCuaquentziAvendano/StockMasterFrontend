@@ -4,14 +4,14 @@ import { environment } from '../../environments/environment.development';
 import { HttpResponse } from '@angular/common/http';
 import { Inventory } from '../types/inventory';
 import { AuthenticationService } from './authentication.service';
-import { forkJoin, map, of, switchMap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { User } from '../types/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventoryService {
-  private cache = new Map();
+  private cache = new Map<string, HttpResponse<Inventory>>();
 
   constructor(
     private httpService: HttpService,
@@ -26,7 +26,10 @@ export class InventoryService {
     });
   }
 
-  getById(id: string, includeRoles: boolean) {
+  getById(id: string, includeRoles: boolean): Observable<HttpResponse<Inventory>> {
+    if (this.cacheHas(id, includeRoles)) {
+      return of(this.cacheGet(id, includeRoles));
+    }
     return this.httpService.get<HttpResponse<Inventory>>({
       url: `${environment.BASE_URL}/inventories/getInventory`,
       headers: {
@@ -40,7 +43,9 @@ export class InventoryService {
         }
         const newInventory = this.formatData(response.body!);
         if (!includeRoles) {
-          return of({ ...response, body: newInventory } as HttpResponse<Inventory>);
+          const newResponse = { ...response, body: newInventory } as HttpResponse<Inventory>;
+          this.cacheSet(id, includeRoles, newResponse);
+          return of(newResponse);
         }
         return forkJoin({
           inventory: of(newInventory),
@@ -48,14 +53,16 @@ export class InventoryService {
         }).pipe(
           map(({ inventory, response }) => {
             inventory.roles = response.body!;
-            return { ...response, body: inventory } as HttpResponse<Inventory>;
+            const newResponse = { ...response, body: inventory } as HttpResponse<Inventory>;
+            this.cacheSet(id, includeRoles, newResponse);
+            return newResponse;
           })
         );
       })
     );
   }
 
-  private getPermissions(id: string) {
+  private getPermissions(id: string): Observable<HttpResponse<User[]>> {
     return this.httpService.get<HttpResponse<User[]>>({
       url: `${environment.BASE_URL}/inventories/getPermissions`,
       headers: {
@@ -65,7 +72,7 @@ export class InventoryService {
     });
   }
 
-  getByUser() {
+  getByUser(): Observable<HttpResponse<Inventory[]>> {
     return this.httpService.get<HttpResponse<Inventory[]>>({
       url: `${environment.BASE_URL}/users/getInventories`,
       headers: { authorization: this.authService.getToken() },
@@ -84,6 +91,7 @@ export class InventoryService {
   }
 
   updateData(id: string, name: string) {
+    this.cacheClear();
     return this.httpService.put({
       url: `${environment.BASE_URL}/inventories/updateData`,
       headers: {
@@ -95,6 +103,7 @@ export class InventoryService {
   }
 
   createField(id: string, fieldsData: InventoryFieldCreate[]) {
+    this.cacheClear();
     return this.httpService.put({
       url: `${environment.BASE_URL}/inventories/createField`,
       headers: {
@@ -106,6 +115,7 @@ export class InventoryService {
   }
 
   updateField(id: string, fieldsData: InventoryFieldUpdate) {
+    this.cacheClear();
     return this.httpService.put({
       url: `${environment.BASE_URL}/inventories/updateField`,
       headers: {
@@ -117,6 +127,7 @@ export class InventoryService {
   }
 
   deleteField(id: string, field: string) {
+    this.cacheClear();
     return this.httpService.put({
       url: `${environment.BASE_URL}/inventories/deleteField`,
       headers: {
@@ -128,6 +139,7 @@ export class InventoryService {
   }
 
   modifyPermission(id: string, email: string, role: string) {
+    this.cacheClear();
     return this.httpService.put({
       url: `${environment.BASE_URL}/inventories/modifyPermission`,
       headers: {
@@ -139,6 +151,7 @@ export class InventoryService {
   }
 
   deleteInventory(id: string) {
+    this.cacheClear();
     return this.httpService.delete({
       url: `${environment.BASE_URL}/inventories/deleteInventory`,
       headers: {
@@ -159,6 +172,29 @@ export class InventoryService {
       ...inventory,
       ...items
     };
+  }
+
+  private cacheHas(id: string, includeRoles: boolean) {
+    const key = this.cacheKey(id, includeRoles);
+    return this.cache.has(key)!;
+  }
+
+  private cacheGet(id: string, includeRoles: boolean) {
+    const key = this.cacheKey(id, includeRoles);
+    return this.cache.get(key)!;
+  }
+
+  private cacheSet(id: string, includeRoles: boolean, response: HttpResponse<Inventory>) {
+    const key = this.cacheKey(id, includeRoles);
+    return this.cache.set(key, response);
+  }
+
+  private cacheClear() {
+    this.cache.clear();
+  }
+
+  private cacheKey(id: string, includeRoles: boolean) {
+    return `${id} ${includeRoles}`;
   }
 }
 

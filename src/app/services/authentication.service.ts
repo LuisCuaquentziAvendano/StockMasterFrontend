@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { HttpService } from './http.service';
 import { environment } from '../../environments/environment.development';
@@ -19,7 +19,7 @@ export class AuthenticationService {
     });
   }
 
-  login(email?: string, password?: string) {
+  login(email?: string, password?: string): Observable<HttpResponse<LoginResponse>> {
     return this.httpService.post<HttpResponse<LoginResponse>>({
       url: `${environment.BASE_URL}/users/login`,
       body: { email, password, },

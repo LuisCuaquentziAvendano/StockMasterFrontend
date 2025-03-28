@@ -22,7 +22,7 @@ export class InventorySettingsComponent {
     private inventoryService: InventoryService
   ) {
     const id = this.route.snapshot.paramMap.get('id')!;
-    inventoryService.getById(id, false)
+    inventoryService.getById(id, true)
     .subscribe(response => {
       if (response.ok) {
         this.inventory = response.body!;
