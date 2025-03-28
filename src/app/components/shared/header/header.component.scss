@@ -1,9 +1,9 @@
 @import "../../../utils/styles.scss";
 
 nav {
-    @include flex-vertical(center, center, 2rem);
+    @include flex-vertical(center, center, 1rem);
     background-color: $BG_DARK;
-    padding: 2rem;
+    padding: 1rem;
 
     a {
         @include flex-horizontal(center, center, 1rem);

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { AuthenticationService } from '../../../services/authentication.service';
 import { NgClass } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, NgClass],
+  imports: [RouterLink, NgClass, MatIconModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

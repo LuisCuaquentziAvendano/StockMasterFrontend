@@ -22,12 +22,16 @@ export class InventoriesListComponent {
     private authService: AuthenticationService,
     private router: Router
   ) {
-    inventoryService.getByUser()
+    this.getInventories();
+  }
+
+  private getInventories() {
+    this.inventoryService.getByUser()
     .subscribe(response => {
       if (response.ok) {
         this.inventories = response.body!;
       } else {
-        responseHandler(response, router, authService);
+        responseHandler(response, this.router, this.authService);
       }
     });
   }
@@ -55,13 +59,14 @@ export class InventoriesListComponent {
       return;
     }
     this.inventoryService.create(name)
-    .subscribe(response => {
+    .subscribe(async response => {
       if (response.ok) {
-        showMessageAlert(
+        await showMessageAlert(
           'Inventory created successfully',
           '',
           ALERT_ICONS.SUCCESS
         );
+        this.getInventories();
       } else {
         responseHandler(response, this.router, this.authService);
       }

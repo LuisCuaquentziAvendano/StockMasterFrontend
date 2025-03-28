@@ -3,7 +3,7 @@
 section {
     @include flex-horizontal(space-evenly, center, 1rem);
     background-color: $PRIMARY_DARK;
-    padding: 2rem;
+    padding: 1rem;
     border-top: 1px $BORDER solid;
     border-bottom: 1px $BORDER solid;
 

@@ -43,6 +43,24 @@ export class HttpService {
     );
   }
 
+  getImage(requestParams: RequestParams): Observable<HttpResponse<Blob>> {
+    return this.httpClient.get(
+      requestParams.url,
+      {
+        observe: 'response',
+        responseType: 'blob',
+        params: requestParams.params,
+        headers: requestParams.headers,
+      },
+    ).pipe(
+      map(response => response),
+      catchError(response => {
+        response.body = { error: response.error?.error };
+        return of(response);
+      }),
+    );
+  }
+
   put<T = HttpResponse<SimpleResponse>>(requestParams: RequestParams): Observable<T> {
     return this.httpClient.put(
       requestParams.url,

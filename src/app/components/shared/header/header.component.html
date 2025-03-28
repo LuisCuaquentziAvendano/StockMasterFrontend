@@ -11,7 +11,10 @@
         [ngClass]="{ 'selected': location == '/notifications' }">NOTIFICATIONS</a>
       <a [routerLink]="'/profile'"
         [ngClass]="{ 'selected': location == '/profile' }">PROFILE</a>
-      <a (click)="logout()">LOGOUT</a>
+      <a (click)="logout()">
+        <span>LOGOUT</span>
+        <mat-icon>logout</mat-icon>
+      </a>
     } @else {
       <a [routerLink]="'/'"
         [ngClass]="{ 'selected': location == '/' }">HOME</a>

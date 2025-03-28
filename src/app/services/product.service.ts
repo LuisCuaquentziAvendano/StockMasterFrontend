@@ -4,7 +4,7 @@ import { HttpService } from './http.service';
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment.development';
 import { HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,29 @@ export class ProductService {
         product: productId,
       },
     });
+  }
+
+  getImage(inventoryId: string, productId: string, field: string): Observable<HttpResponse<ImageResponse>> {
+    return this.httpService.getImage({
+      url: `${environment.BASE_URL}/images/getImage`,
+      headers: {
+        authorization: this.authService.getToken(),
+        inventory: inventoryId,
+        product: productId,
+      },
+      params: { field },
+    }).pipe(
+      map(response => {
+        if (!response.ok) {
+          return response as unknown as HttpResponse<ImageResponse>;
+        }
+        const objectUrl = URL.createObjectURL(response.body!);
+        return {
+          ...response,
+          body: { url: objectUrl },
+        } as HttpResponse<ImageResponse>;
+      })
+    );
   }
 
   getByQuery(inventoryId: string, query: string, page: number): Observable<HttpResponse<Product[]>> {
@@ -70,4 +93,8 @@ export class ProductService {
       },
     });
   }
+}
+
+interface ImageResponse {
+  url: string;
 }

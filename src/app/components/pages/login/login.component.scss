@@ -6,16 +6,18 @@ main {
 
     form {
         @include flex-vertical(center, center, 2rem);
+        width: 30rem;
 
         div {
             @include flex-horizontal(center, center, 1rem);
+            width: 100%;
 
             mat-icon {
                 @include icon-style(2rem, white);
             }
 
             input {
-                width: 20rem;
+                flex: 1;
                 padding: 0.5rem;
                 border-radius: 0.5rem;
             }
@@ -58,4 +60,10 @@ main form a.login-google {
 
 .is-invalid {
     background-color: $DANGER_LIGHT;
+}
+
+@media screen and (max-width: 480px) {
+    main form {
+        width: 20rem;
+    }
 }
