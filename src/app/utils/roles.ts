@@ -1,5 +1,6 @@
 export enum ROLES {
     ADMIN = 'admin',
     STOCK = 'stock',
-    QUERY = 'query'
+    QUERY = 'query',
+    NONE = 'none',
 }

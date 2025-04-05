@@ -1,17 +1,19 @@
-@if (showSubheader) {
-  <section>
-    <a (click)="goToSection('schema')"
-      [ngClass]="{ 'selected': location.endsWith('/schema') }">Schema</a>
-    <a (click)="goToSection('products')"
-      [ngClass]="{ 'selected': location.endsWith('/products') }">Products</a>
-    @if (showSalesLink) {
-      <a (click)="goToSection('sales')"
-        [ngClass]="{ 'selected': location.endsWith('/sales') }">Sales</a>
-    }
-    @if (showSettingsLink) {
-      <a (click)="goToSection('settings')"
-        [ngClass]="{ 'selected': location.endsWith('/settings') }">Settings</a>
-    }
-  </section>
-}
-<router-outlet></router-outlet>
+<main>
+  @if (showSubheader) {
+    <section>
+      <a (click)="goToSection('schema')"
+        [ngClass]="{ 'selected': location.endsWith('/schema') }">Schema</a>
+      <a (click)="goToSection('products')"
+        [ngClass]="{ 'selected': location.endsWith('/products') }">Products</a>
+      @if (showSalesLink) {
+        <a (click)="goToSection('sales')"
+          [ngClass]="{ 'selected': location.endsWith('/sales') }">Sales</a>
+      }
+      @if (showSettingsLink) {
+        <a (click)="goToSection('settings')"
+          [ngClass]="{ 'selected': location.endsWith('/settings') }">Settings</a>
+      }
+    </section>
+  }
+  <router-outlet></router-outlet>
+</main>

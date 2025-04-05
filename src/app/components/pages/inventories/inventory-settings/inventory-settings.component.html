@@ -1,3 +1,101 @@
-@if (inventory) {
-    <p>{{inventory.id}}</p>
-}
+<section>
+  @if (inventory) {
+    <div class="name">
+      <div>
+        <p>Name:</p>
+        <p>{{ inventory.name }}</p>
+        <button class="success-button" (click)="editName()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+      </div>
+      <div>
+        <p>Role:</p>
+        <p>{{ inventory.myRole }}</p>
+      </div>
+    </div>
+    <hr>
+
+    <div class="permissions">
+      <h3>Inventory permissions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(user of inventory.roles; track user.email) {
+            <tr>
+              <td class="email">{{ user.email }}</td>
+              <td>{{ user.name }}</td>
+              <td>
+                @if (user.role == 'admin') {
+                  <select disabled>
+                    <option value="admin" [selected]>admin</option>
+                  </select>
+                } @else {
+                  <select disabled>
+                    <option value="stock" [selected]="user.role == 'stock'">stock</option>
+                    <option value="query" [selected]="user.role == 'query'">query</option>
+                  </select>
+                }
+              </td>
+              <td>
+                @if (user.role != 'admin') {
+                  <div>
+                    <button class="danger-button" (click)="deletePermission(user)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                }
+              </td>
+            </tr>
+          }
+          @if (addingPermission) {
+            <tr>
+              <td colspan="2">
+                <input type="text" placeholder="Email" [(ngModel)]="addPermissionEmail">
+              </td>
+              <td>
+                <select [(ngModel)]="addPermissionRole">
+                  <option value="stock">stock</option>
+                  <option value="query">query</option>
+                </select>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <div class="buttons-container">
+        @if (addingPermission) {
+          <button class="success-button" (click)="addPermission()">
+            <span>Add</span>
+          </button>
+          <button class="cancel-button" (click)="changeAddingPermission()">
+            <span>Cancel</span>
+          </button>
+        } @else {
+          <button class="warning-button" (click)="changeAddingPermission()">
+            <mat-icon>add</mat-icon>
+            <span>Add permission</span>
+          </button>
+        }
+      </div>
+    </div>
+    <hr>
+
+    <div class="delete">
+      <h3>Delete inventory</h3>
+      <div>
+        <button class="danger-button" (click)="deleteInventory()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete all</span>
+        </button>
+      </div>
+    </div>
+  }
+</section>

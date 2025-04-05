@@ -18,8 +18,12 @@ export class HttpService {
         headers: requestParams.headers,
       },
     ).pipe(
-      map(response => response),
+      map((response: any) => {
+        response.ok = 200 <= response.status && response.status < 300;
+        return response;
+      }),
       catchError(response => {
+        response.ok = 200 <= response.status && response.status < 300;
         response.body = { error: response.error?.error };
         return of(response);
       }),
@@ -35,8 +39,12 @@ export class HttpService {
         headers: requestParams.headers,
       },
     ).pipe(
-      map(response => response),
+      map((response: any) => {
+        response.ok = 200 <= response.status && response.status < 300;
+        return response;
+      }),
       catchError(response => {
+        response.ok = 200 <= response.status && response.status < 300;
         response.body = { error: response.error?.error };
         return of(response);
       }),
@@ -53,8 +61,12 @@ export class HttpService {
         headers: requestParams.headers,
       },
     ).pipe(
-      map(response => response),
+      map((response: any) => {
+        response.ok = 200 <= response.status && response.status < 300;
+        return response;
+      }),
       catchError(response => {
+        response.ok = 200 <= response.status && response.status < 300;
         response.body = { error: response.error?.error };
         return of(response);
       }),
@@ -71,8 +83,12 @@ export class HttpService {
         headers: requestParams.headers,
       },
     ).pipe(
-      map(response => response),
+      map((response: any) => {
+        response.ok = 200 <= response.status && response.status < 300;
+        return response;
+      }),
       catchError(response => {
+        response.ok = 200 <= response.status && response.status < 300;
         response.body = { error: response.error?.error };
         return of(response);
       }),
@@ -89,8 +105,12 @@ export class HttpService {
         body: requestParams.body,
       },
     ).pipe(
-      map(response => response),
+      map((response: any) => {
+        response.ok = 200 <= response.status && response.status < 300;
+        return response;
+      }),
       catchError(response => {
+        response.ok = 200 <= response.status && response.status < 300;
         response.body = { error: response.error?.error };
         return of(response);
       }),

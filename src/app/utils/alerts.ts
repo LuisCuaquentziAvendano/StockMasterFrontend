@@ -26,8 +26,8 @@ export enum ALERT_ICONS {
   QUESTION = 'question'
 }
 
-export async function requestConfirmationAlert(title: string, text: string, icon: ALERT_ICONS,
-  confirmButtonColor: ALERT_COLORS, confirmButtonText: string) {
+export async function requestConfirmationAlert(title: string, text: string | undefined, icon: ALERT_ICONS,
+  confirmButtonColor: ALERT_COLORS, confirmButtonText: string): Promise<boolean> {
   return Swal.fire({
     title,
     text,
@@ -39,7 +39,7 @@ export async function requestConfirmationAlert(title: string, text: string, icon
   .catch(() => false);
 }
 
-export async function showMessageAlert(title: string, text: string, icon: ALERT_ICONS) {
+export async function showMessageAlert(title: string, text: string | undefined, icon: ALERT_ICONS):Promise<void> {
   return Swal.fire({
     title,
     text,
@@ -48,12 +48,12 @@ export async function showMessageAlert(title: string, text: string, icon: ALERT_
   .catch(() => {});
 }
 
-export async function getInputAlert(title: string, text: string) {
+export async function getInputAlert(title: string, text: string | undefined): Promise<[boolean, string]> {
   return Swal.fire({
     title,
     text,
     input: "text",
     showCancelButton: true,
-  }).then((result) => [result.isConfirmed as boolean, result.value || ''])
-  .catch(() => [false, '']);
+  }).then((result) => [result.isConfirmed, result.value] as [boolean, string])
+  .catch(() => [false, ''] as [boolean, string]);
 }

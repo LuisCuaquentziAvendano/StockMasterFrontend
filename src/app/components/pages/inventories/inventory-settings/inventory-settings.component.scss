@@ -1,0 +1,128 @@
+@import "../../../../utils/styles.scss";
+
+section {
+    @include flex-vertical(center, center, 3rem);
+    padding: 3rem;
+
+    div.name {
+        @include flex-vertical(center, center, 1rem);
+
+        div {
+            @include flex-horizontal(center, center, 1rem);
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+
+    div.permissions {
+        @include flex-vertical(center, center, 1rem);
+        width: 100%;
+
+        h3 {
+            margin: 0;
+        }
+
+        table {
+            div {
+                @include flex-horizontal(center, center, 1rem);
+            }
+
+            th, td {
+                padding: 0.5rem 0;
+            }
+
+            th:nth-child(1) {
+                width: 30%;
+            }
+            
+            th:nth-child(2) {
+                width: 30%;
+            }
+            
+            th:nth-child(3) {
+                width: 20%;
+            }
+            
+            th:nth-child(4) {
+                width: 20%;
+            }
+
+            text-align: center;
+
+            td.email {
+                word-break: break-all;
+            }
+
+            td input {
+                width: 80%;
+                padding: 0.5rem;
+            }
+        }
+
+        select {
+            color: white;
+        }
+
+        option {
+            color: black;
+        }
+
+        div.buttons-container {
+            @include flex-horizontal(center, center, 1rem);
+        }
+
+        .success-button {
+            color: white;
+            background-color: $SUCCESS_DARK;
+            padding: 0.5rem 1rem;
+            margin: 0 2rem;
+        }
+        
+        .cancel-button {
+            color: white;
+            background-color: $SECONDARY_MID;
+            padding: 0.5rem 1rem;
+            margin: 0 2rem;
+        }
+    }
+
+    div.delete {
+        @include flex-vertical(center, center, 1rem);
+    }
+
+    button {
+        @include flex-horizontal(center, center);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    hr {
+        background-color: $BORDER;
+        height: 1px;
+        width: 100%;
+    }
+}
+
+.warning-button {
+    color: black;
+    background-color: $WARNING;
+}
+
+.danger-button {
+    color: white;
+    background-color: $DANGER_DARK;
+}
+
+.success-button {
+    color: white;
+    background-color: $SUCCESS_DARK;
+}
+
+@media screen and (max-width: 480px) {
+    section {
+        padding: 1rem;
+        gap: 1rem;
+    }
+}
