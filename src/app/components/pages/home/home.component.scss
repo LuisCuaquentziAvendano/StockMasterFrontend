@@ -1,0 +1,74 @@
+p {
+    font-size: 1.5rem;
+}
+
+#ipadimg {
+    height: 500px;
+    background-image: url('../../../../assets/home-ipad.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: black;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 50px;
+}
+
+#ipadimg p {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#main{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    margin-bottom: 150px;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.column img {
+    width: 200px;
+    height: 150px; 
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border: 1px solid white;
+    margin: 20px;
+    padding: 20px;
+    width: 60%;
+}
+
+.row img{
+    width: 250px;
+    height: 200px;
+    margin: 20px;
+}
