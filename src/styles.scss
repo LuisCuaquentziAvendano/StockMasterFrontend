@@ -65,3 +65,13 @@ input {
 a {
   cursor: pointer;
 }
+
+select {
+  background-color: transparent;
+  border: 0;
+  font-size: inherit;
+}
+
+option {
+  background-color: transparent;
+}

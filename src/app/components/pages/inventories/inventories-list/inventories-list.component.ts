@@ -41,12 +41,10 @@ export class InventoriesListComponent {
   }
 
   async createInventory() {
-    const input = await getInputAlert(
+    const [confirmed, name] = await getInputAlert(
       'Create inventory',
       'Write the name of the new inventory...'
     );
-    const confirmed = input[0];
-    const name = input[1];
     if (!confirmed) {
       return;
     }
