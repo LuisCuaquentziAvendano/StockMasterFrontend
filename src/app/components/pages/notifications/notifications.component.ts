@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { SocketIoService } from '../../../services/socket-io.service';
 @Component({
   selector: 'app-notifications',
   standalone: true,
@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss'
 })
-export class NotificationsComponent {
 
+export class NotificationsComponent {
+  notifications: string[] = [];
+
+  constructor (private socketService: SocketIoService) {
+    this.socketService.notifications.subscribe((notes) => {
+      this.notifications = notes;
+    });
+  }
 }
