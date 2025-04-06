@@ -13,7 +13,7 @@ export class ProductService {
   constructor(
     private httpService: HttpService,
     private authService: AuthenticationService
-  ) {}
+  ) { }
 
   create(inventoryId: string, productData: FormData) {
     return this.httpService.post({
@@ -34,7 +34,18 @@ export class ProductService {
         inventory: inventoryId,
         product: productId,
       },
-    });
+    }).pipe(
+      map(response => {
+        if (!response.ok) {
+          return response;
+        }
+        const newProduct = this.formatProduct(response.body!);
+        return {
+          ...response,
+          body: newProduct,
+        } as HttpResponse<Product>;
+      }),
+    );
   }
 
   getImage(inventoryId: string, productId: string, field: string): Observable<HttpResponse<ImageResponse>> {
@@ -60,15 +71,26 @@ export class ProductService {
     );
   }
 
-  getByQuery(inventoryId: string, query: string, page: number): Observable<HttpResponse<Product[]>> {
-    return this.httpService.get<HttpResponse<Product[]>>({
+  getByQuery(inventoryId: string, query: string, page: number): Observable<HttpResponse<GetByQueryResponse>> {
+    return this.httpService.get<HttpResponse<GetByQueryResponse>>({
       url: `${environment.BASE_URL}/products/getProductsByQuery`,
       headers: {
         authorization: this.authService.getToken(),
         inventory: inventoryId,
       },
       params: { query, page: page.toString() },
-    });
+    }).pipe(
+      map(response => {
+        if (!response.ok) {
+          return response;
+        }
+        const newProducts = this.formatGetByQuery(response.body!) as GetByQueryResponse;
+        return {
+          ...response,
+          body: newProducts,
+        } as HttpResponse<GetByQueryResponse>;
+      }),
+    );
   }
 
   update(inventoryId: string, productId: string, productData: FormData) {
@@ -93,8 +115,39 @@ export class ProductService {
       },
     });
   }
+
+  private formatGetByQuery(response: GetByQueryResponse) {
+    const newResponse = response as Record<string, any>;
+    const items = {
+      inventoryId: newResponse['inventory'],
+      products: newResponse['products'].map((product: Product) => this.formatProduct(product)),
+    };
+    return {
+      ...response,
+      ...items,
+    };
+  }
+
+  private formatProduct(product: Product) {
+    const newProduct = product as Record<string, any>;
+    const items = {
+      id: newProduct['product'],
+    };
+    return {
+      ...product,
+      ...items,
+    };
+  }
 }
 
 interface ImageResponse {
   url: string;
+}
+
+interface GetByQueryResponse {
+  currentPage: number;
+  inventoryId: number;
+  lastPage: number;
+  products: Product[];
+  totalProducts: number;
 }
