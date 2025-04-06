@@ -1,0 +1,8 @@
+<div id="notification-container">
+    @for(note of notifications; track note) {
+        <div class="notification">
+            <span>{{ note }}</span>
+            <button (click)="close(note)">×</button>
+        </div>
+    }
+</div>
