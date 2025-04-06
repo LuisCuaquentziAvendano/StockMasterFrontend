@@ -1,0 +1,65 @@
+<a (click)="goToSection('sales')">« Return to Sales</a>
+
+<section>
+    @if (!saleRecords || saleRecords.length === 0) {
+        <p>No sale records found</p>
+    }
+
+    @for(saleRecord of saleRecords; track saleRecord._id) {
+        <div>
+            <p><Strong>Sale Record ID:</Strong> {{ saleRecord._id! }}</p>
+            <p><strong>Parameter Type:</strong> {{ saleRecord.parameterType }}</p>
+            <p><strong>Parameter ID:</strong> {{ saleRecord.parameterId }}</p>
+            <p><strong>Total Sales Amount:</strong> {{saleRecord.totalSalesAmount | formatAmount }}</p>
+            <strong>Products Sold:</strong>
+                <ul>
+                    @for (id of saleRecord.entityId; track id) {
+                        <li>{{ id }}</li>
+                    }
+                </ul>
+            <p><strong>Created At:</strong> {{ saleRecord.createdAt | date:'medium' }}</p>
+            <p><strong>Updated At:</strong> {{ saleRecord.updatedAt | date:'medium' }}</p>
+            <button (click)="updateRecord(saleRecord._id!, saleRecord.parameterType, saleRecord.parameterId)">Update record</button>
+            <button (click)="deleteRecord(saleRecord._id!)" class="delete">Delete record</button>
+        </div>
+    }
+</section>
+
+<section>
+    <button (click)="loadCreator()" [disabled]="creator">Create Sale Record</button>
+    @if(creator) {
+        <form [formGroup]="form" (submit)="selectType()">
+            <div class="borderless">
+                <label>Record type:</label>
+                <select formControlName="record" [ngClass]="{ 'is-invalid': isInvalidField('record') }">
+                    <option value="inventory">Inventory</option>
+                    <option value="product">Product</option>
+                    <option value="customer">Customer</option>
+                </select>
+            </div>        
+            <div class="borderless">
+                <button [disabled]="isInvalidField('record')">Select type</button>
+            </div>
+        </form>
+
+        @if(typeSelected) {
+            <form [formGroup]="param" (submit)="generateRecord()">
+                <div class="borderless">
+                    <label>Parameter:</label>
+                    <select formControlName="paramSelect" [ngClass]="{ 'is-invalid': isInvalidField('paramSelect') }">
+                        @for(parameter of parameters; track parameter.id) {
+                            <option [ngValue]="parameter.id">{{ parameter.name }}</option>
+                        }  
+                    </select>
+                </div>
+                <div class="borderless">
+                    <button>Generate Sale Record</button>
+                </div>
+            </form>
+        }
+
+        <div class="borderless">
+            <button (click)="cancelCreator()" class="delete">Cancel record creation</button>
+        </div>    
+    }
+</section>

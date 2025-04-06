@@ -16,6 +16,7 @@ import { ForbiddenComponent } from './components/pages/forbidden/forbidden.compo
 import { RoleGuard } from './guards/role.guard';
 import { ROLES } from './utils/roles';
 import { ServerErrorComponent } from './components/pages/server-error/server-error.component';
+import { InventoryRecordsComponent } from './components/pages/inventories/inventory-records/inventory-records.component';
 
 export const routes: Routes = [
     {
@@ -40,6 +41,14 @@ export const routes: Routes = [
             {
                 path: ':id/sales',
                 component: InventorySalesComponent,
+                canActivate: [RoleGuard],
+                data: {
+                    roles: [ROLES.ADMIN, ROLES.STOCK],
+                },
+            },
+            {
+                path: ':id/records',
+                component: InventoryRecordsComponent,
                 canActivate: [RoleGuard],
                 data: {
                     roles: [ROLES.ADMIN, ROLES.STOCK],

@@ -1,0 +1,102 @@
+@import "../../../../utils/styles.scss";
+
+a {
+    text-decoration: underline;
+    margin: 1rem;
+    position: relative;
+    top: 1rem;
+}
+
+.is-invalid {
+    background-color: $DANGER_LIGHT;
+}
+
+button:disabled,
+button[disabled]{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+section {
+    @include flex-vertical(center, center, 1rem);
+    padding: 3rem;
+
+    #sale-viewer {
+        @include flex-vertical(center, center, 1rem);
+
+        div {
+            
+            @include flex-vertical(start, center, 1rem);
+            border: 1px $BORDER solid;
+            padding: 1rem;
+
+            p {
+                margin: 0;
+            }
+
+            button {
+                width: 12rem;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+                background-color: $DANGER_DARK;
+                color: white;
+                align-self: center;
+            }
+        }
+    }
+
+    button {
+        @include flex-horizontal(center, center);
+        background-color: $SUCCESS_DARK;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        color: white;
+        width: 12rem;
+    }
+
+    #sale-create {
+        @include flex-horizontal(center, center, 5rem);
+
+        div {
+            ul {
+                div {
+                    @include flex-horizontal(start, center, 1.5rem);
+                }
+
+                button {
+                    background-color: $DANGER_DARK;
+                    width: auto;
+                    display: inline-block;
+                    margin: 0;
+                }
+            }
+        }
+
+        input {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        select {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: white;
+        }
+
+        option {
+            background-color: white;
+        }
+
+        button {
+            @include flex-horizontal(center, center);
+            background-color: $SUCCESS_DARK;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            color: white;
+            width: 12rem;
+            margin-top: 2rem;
+        }
+    }
+}
