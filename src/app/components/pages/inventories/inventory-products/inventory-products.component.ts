@@ -4,6 +4,7 @@ import { Inventory } from '../../../../types/inventory';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { InventoryService } from '../../../../services/inventory.service';
 import { responseHandler } from '../../../../utils/responseHandler';
+import { ProductService } from '../../../../services/product.service';
 
 @Component({
   selector: 'app-inventory-products',
@@ -19,6 +20,7 @@ export class InventoryProductsComponent {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
+    private productService: ProductService,
     private inventoryService: InventoryService
   ) {
     const id = this.route.snapshot.paramMap.get('id')!;
