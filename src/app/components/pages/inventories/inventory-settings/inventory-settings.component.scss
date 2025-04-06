@@ -5,7 +5,7 @@ section {
     padding: 3rem;
 
     div.name {
-        @include flex-vertical(center, center, 1rem);
+        @include flex-vertical(flex-start, center, 1rem);
 
         div {
             @include flex-horizontal(center, center, 1rem);

@@ -1,0 +1,73 @@
+@import "../../../utils/styles.scss";
+
+section {
+    @include flex-vertical(center, center, 3rem);
+    padding: 3rem;
+
+    > div {
+        @include flex-vertical(center, center, 1rem);
+
+        > div {
+            @include flex-horizontal(center, center, 1rem);
+        }
+    }
+
+    h3, p {
+        margin: 0;
+    }
+
+    input {
+        width: 15rem;
+        padding: 0.5rem;
+    }
+
+    button {
+        @include flex-horizontal(center, center);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    hr {
+        background-color: $BORDER;
+        height: 1px;
+        width: 100%;
+    }
+}
+
+section div.left {
+    h3 {
+        width: 100%;
+        text-align: center;
+    }
+
+    align-items: flex-start;
+}
+
+.token {
+    width: 20rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    border: 1px solid $BORDER;
+    padding: 0.5rem;
+}
+
+.success-button {
+    background-color: $SUCCESS_DARK;
+    color: white;
+}
+
+.warning-button {
+    background-color: $WARNING;
+}
+
+.danger-button {
+    background-color: $DANGER_DARK;
+    color: white;
+}
+
+@media screen and (max-width: 480px) {
+    section {
+        padding: 1rem;
+        gap: 1rem;
+    }
+}

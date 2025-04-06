@@ -48,12 +48,16 @@ export async function showMessageAlert(title: string, text: string | undefined, 
   .catch(() => {});
 }
 
-export async function getInputAlert(title: string, text: string | undefined): Promise<[boolean, string]> {
+export async function getInputAlert(title: string, text: string | undefined, icon?: ALERT_ICONS,
+  confirmButtonColor?: ALERT_COLORS, confirmButtonText?: string): Promise<[boolean, string]> {
   return Swal.fire({
     title,
     text,
     input: "text",
     showCancelButton: true,
+    icon,
+    confirmButtonColor,
+    confirmButtonText: confirmButtonText || 'Ok',
   }).then((result) => [result.isConfirmed, result.value] as [boolean, string])
   .catch(() => [false, ''] as [boolean, string]);
 }

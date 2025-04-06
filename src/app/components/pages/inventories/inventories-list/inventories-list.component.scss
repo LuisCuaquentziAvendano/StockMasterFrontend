@@ -1,7 +1,7 @@
 @import "../../../../utils/styles.scss";
 
 section {
-    @include flex-horizontal(center, center, 3rem);
+    @include flex-vertical(center, center, 3rem);
     padding: 3rem;
 
     div {

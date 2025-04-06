@@ -1,1 +1,54 @@
-<p>profile works!</p>
+<section>
+  @if (user) {
+    <div class="left">
+      <h3>General data</h3>
+      <div>
+        <p>Name:</p>
+        <p>{{ user.name }}</p>
+        <button (click)="editName()" class="success-button">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+      </div>
+      <div>
+        <p>Email:</p>
+        <p>{{ user.email }}</p>
+      </div>
+    </div>
+    <hr>
+  
+    <div>
+      <h3>API token</h3>
+      <div>
+        <p class="token">{{ token }}</p>
+        <button (click)="copyToClipboard()" class="success-button">
+          <mat-icon>file_copy</mat-icon>
+          <span>Copy</span>
+        </button>
+      </div>
+      <button (click)="generateNewToken()" class="warning-button">
+        <mat-icon>autorenew</mat-icon>
+        <span>Generate new token</span>
+      </button>
+    </div>
+    <hr>
+  
+    <div>
+      <h3>Update your password</h3>
+      <input type="password" placeholder="Password" #password>
+      <input type="password" placeholder="Confirm password" #confirmPassword>
+      <button (click)="updatePassword(password, confirmPassword)" class="warning-button">
+        Update
+      </button>
+    </div>
+    <hr>
+  
+    <div>
+      <h3>Delete your account</h3>
+      <button (click)="deleteAccount()" class="danger-button">
+        <mat-icon>delete</mat-icon>
+        <span>Delete all</span>
+      </button>
+    </div>
+  }
+</section>

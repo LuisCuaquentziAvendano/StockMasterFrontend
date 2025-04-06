@@ -118,14 +118,14 @@ export class InventorySettingsComponent {
   }
 
   async deleteInventory() {
-    const confirmed = await requestConfirmationAlert(
-      'Delete all',
-      'If you delete the inventory, all data related will be deleted, included the schema, products, sales and sales records for you and all users with permissions in this inventory.',
+    const [confirmed, text] = await getInputAlert(
+      'Delete inventory?',
+      'If you delete the inventory, all data related will be deleted, included the schema, products, sales and sales records for you and all users with permissions in this inventory. Type \'delete inventory\' to delete all permanently.',
       ALERT_ICONS.WARNING,
       ALERT_COLORS.DANGER_DARK,
       'Delete all',
     );
-    if (!confirmed) {
+    if (!confirmed || text != 'delete inventory') {
       return;
     }
     this.inventoryService.deleteInventory(this.inventory.id)
