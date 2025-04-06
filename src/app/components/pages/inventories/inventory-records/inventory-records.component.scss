@@ -1,0 +1,75 @@
+@import "../../../../utils/styles.scss";
+
+a {
+    text-decoration: underline;
+    margin: 1rem;
+    position: relative;
+    top: 1rem;
+}
+
+::ng-deep input {
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: white;
+}
+
+::ng-deep select {
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background: white;
+}
+
+::ng-deep option {
+    background-color: white;
+}
+
+.is-invalid {
+    background-color: $DANGER_LIGHT;
+}
+
+button:disabled,
+button[disabled]{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+section {
+    @include flex-vertical(center, center, 1rem);
+    padding: 3rem;
+
+    div {
+            
+        @include flex-vertical(start, center, 1rem);
+        border: 1px $BORDER solid;
+        padding: 1rem;
+
+        p {
+            margin: 0;
+        }
+
+        button {
+            align-self: center;
+        }
+
+    }
+
+    button {
+        @include flex-horizontal(center, center);
+        background-color: $SUCCESS_DARK;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        color: white;
+        width: 12rem;
+    }
+
+    .borderless {
+        border: none;
+        padding: 0.5rem;
+    }
+
+    .delete {
+        background-color: $DANGER_DARK;
+    }
+}

@@ -1,3 +1,79 @@
-@if (inventory) {
-    <p>{{inventory.id}}</p>
-}
+<a (click)="goToSection('records')">Go to Sales Records »</a>
+
+<section>
+    @if (!sales || sales.length === 0) {
+        <p>No sales found</p>
+    }
+    <div id="sale-viewer">
+        @for(sale of sales; track sale._id) {
+            <div id="{{sale._id}}">
+                <p><strong>Customer:</strong> {{sale.customer}}</p>
+                <p><strong>Status:</strong> {{sale.status}}</p>
+                <p><strong>Total amount:</strong> {{sale.totalAmount | formatAmount }}</p>
+                <p><strong>Products:</strong></p>
+                <ul>
+                    @for(product of sale.products; track product.product_id) {
+                        <li>
+                            <strong>Product ID:</strong> {{product.product_id}} <br>
+                            <strong>Amount:</strong> {{product.amount}} <br>
+                            <strong>Price:</strong> ${{product.price}} <br>
+                        </li>
+                    }
+                </ul>
+                <button (click)="refund(sale)" [disabled]="sale.status === 'refunded'">Refund</button>
+            </div>
+        }
+    </div>
+</section>
+
+<section>
+    <button (click)="createSale()" [disabled]="saleCreator">Create test sale</button>
+    <div id="sale-create">
+        @if(saleCreator) {
+            <div>
+                <form [formGroup]="form" (submit)="addProduct()">
+                    <p><strong>Products:</strong></p>
+        
+                    <select formControlName="products" [ngClass]="{ 'is-invalid': isInvalidField('products') }">
+                        @for(product of products; track product.product) {
+                            <option [ngValue]="product">{{ product.fields['name'] }} ({{ product.fields['price'] }})</option>
+                        }  
+                    </select>
+        
+                    <p><strong>Amount:</strong></p>
+        
+                    <input type="number" min="1" formControlName="amount" [ngClass]="{ 'is-invalid': isInvalidField('amount') }">
+        
+                    <button [disabled]="form.invalid">Add product</button>
+        
+                </form>
+            </div>
+    
+            <div>
+                @if(!cartEmpty) {
+                    <p><strong>Cart:</strong></p>
+        
+                    <ul>
+                        @for(item of cart; track item.product_id) {
+                            <div>
+                                <li>
+                                    <strong>{{ item.name }}</strong> - {{ item.amount }} x ${{ item.price }}
+                                </li>
+    
+                                <button (click)="removeItem($index)"><mat-icon>delete</mat-icon></button>
+                            </div>
+                        }
+                    </ul>
+        
+                    <form [formGroup]="upload" (submit)="uploadSale()">
+                        <p><strong>Customer (email):</strong></p>
+        
+                        <input type="email" formControlName="customer" [ngClass]="{ 'is-invalid': isInvalidField('customer') }">
+            
+                        <button [disabled]="upload.invalid">Upload test sale</button>
+                    </form>
+                }
+            </div>
+        }
+    </div>
+</section>
