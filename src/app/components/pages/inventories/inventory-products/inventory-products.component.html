@@ -1,3 +1,77 @@
-@if (inventory) {
+<!-- @if (inventory) {
     <p>{{inventory.id}}</p>
-}
+} -->
+<div id="main">
+  <h3>Products</h3>
+  <p>Search, edit or delete a product:</p>
+  <div class="search">
+    <input type="text" placeholder="Search ID" />
+    <button class="search-button">Search</button>
+  </div>
+  <p>Search products by query</p>
+  <div class="search">
+    <input type="text" placeholder="Search query" />
+    <button class="search-button">Search</button>
+  </div>
+  <h3>Create product</h3>
+</div>
+<div id="create-product">
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter product name" />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        type="text"
+        id="description"
+        placeholder="Enter product description"
+      />
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="number" id="price" placeholder="Enter product price" />
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input type="text" id="category" placeholder="Enter product category" />
+    </div>
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <textarea id="tags" placeholder="Enter product tags"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="date_added">Date Added</label>
+      <input type="datetime-local" id="date_added" />
+    </div>
+    <div class="form-group">
+      <label>Is Featured</label>
+      <div class="checkbox-group">
+        <label for="is_featured_yes">
+          <input
+            type="radio"
+            id="is_featured_yes"
+            name="is_featured"
+            value="yes"
+          />
+          Yes
+        </label>
+        <label for="is_featured_no">
+          <input
+            type="radio"
+            id="is_featured_no"
+            name="is_featured"
+            value="no"
+          />
+          No
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="stock">Stock</label>
+      <input type="number" id="stock" placeholder="Enter stock quantity" />
+    </div>
+    <button type="submit" class="create-button">Create Product</button>
+  </form>
+</div>
