@@ -1,0 +1,104 @@
+@import "../../../../utils/styles.scss";
+
+section {
+    @include flex-vertical(center, center, 3rem);
+    padding: 3rem;
+
+    div.fields-section {
+        @include flex-vertical(center, center, 1rem);
+        width: 100%;
+
+        h3 {
+            margin: 0;
+        }
+
+        table {
+            div {
+                @include flex-horizontal(center, center);
+            }
+
+            th, td {
+                padding: 0.5rem 0;
+            }
+
+            th:nth-child(1) {
+                width: 30%;
+            }
+            
+            th:nth-child(2) {
+                width: 30%;
+            }
+            
+            th:nth-child(3) {
+                width: 20%;
+            }
+            
+            th:nth-child(4) {
+                width: 20%;
+            }
+
+            text-align: center;
+
+            td input {
+                width: 80%;
+                padding: 0.5rem;
+            }
+        }
+
+        select {
+            color: white;
+        }
+
+        option {
+            color: black;
+        }
+    }
+
+    button {
+        margin: 0.2rem;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    input {
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    input:disabled,
+    input[disabled]{
+        background-color: white;
+        color: black;
+        opacity: 0.4;
+    }
+
+    .button-group {
+        @include flex-horizontal(center, center);
+    }
+}
+
+.edit-button {
+    color: white;
+    background-color: $PRIMARY_MID;
+}
+
+.danger-button {
+    color: white;
+    background-color: $DANGER_DARK;
+}
+
+.success-button {
+    color: white;
+    background-color: $SUCCESS_DARK;
+}
+
+#add-button {
+    @include flex-horizontal(center, center, 0.3rem);
+}
+
+@media screen and (max-width: 480px) {
+    section {
+        padding: 1rem;
+        gap: 1rem;
+    }
+}

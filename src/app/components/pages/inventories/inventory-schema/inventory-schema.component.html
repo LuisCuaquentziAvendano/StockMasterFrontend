@@ -1,3 +1,103 @@
-@if (inventory) {
-    <p>{{inventory.id}}</p>
-}
+<section>
+    @if (inventory) {
+    <div>
+        <p>Name: {{ inventory.name }}</p>
+        <p>Role: {{ inventory.myRole }}</p>
+    </div>
+    }
+
+    <div class="fields-section">
+        <h3>Inventory fields</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Visible</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (field of getFieldNames(); track field) {
+                <tr>
+                    <td>
+                        <input type="text" [value]="editing === field ? fieldBeingEdited.new : field"
+                            [disabled]="editing !== field" [ngClass]="{ 'edit-input': editing === field }"
+                            (input)="fieldBeingEdited.new = $any($event).target.value" />
+                    </td>
+
+                    <td>
+                        <p>{{ getFieldType(field) }}</p>
+                    </td>
+
+                    <td>
+                        <select [disabled]="editing !== field" [ngClass]="{ 'edit-input': editing === field }"
+                            [(ngModel)]="fieldBeingEdited.visible" [value]="isFieldVisible(field)">
+                            <option [value]="true">true</option>
+                            <option [value]="false">false</option>
+                        </select>
+                    </td>
+
+                    <td>
+                        @if (editing !== field) {
+                        <div class="button-group">
+                            <button class="edit-button" (click)="editField(field, isFieldVisible(field))">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button class="danger-button" (click)="deleteField(field)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                        } @else {
+                        <div class="button-group">
+                            <button class="success-button" (click)="updateField()">
+                                <mat-icon>save</mat-icon>
+                            </button>
+                            <button class="danger-button" (click)="cancelEdit()">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </div>
+                        }
+                    </td>
+                </tr>
+                }
+
+                @if (showAddFieldForm) {
+                <tr>
+                    <td>
+                        <input type="text" [(ngModel)]="newField.field" placeholder="Field name" />
+                    </td>
+                    <td>
+                        <select [(ngModel)]="newField.type">
+                            @for (type of typeOptions; track type) {
+                            <option [value]="type">{{ type }}</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <select [(ngModel)]="newField.visible">
+                            <option [value]="true">true</option>
+                            <option [value]="false">false</option>
+                        </select>
+                    </td>
+                    <td class="button-group">
+                        <button class="success-button" (click)="createField()">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                        <button class="danger-button" (click)="toggleAddFieldForm()">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (!showAddFieldForm) {
+        <button class="success-button" id="add-button" (click)="toggleAddFieldForm()">
+            Add <mat-icon>add</mat-icon>
+        </button>
+        }
+    </div>
+</section>
