@@ -3,6 +3,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { HttpService } from './http.service';
 import { environment } from '../../environments/environment.development';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class AuthenticationService {
       body: { email, password, },
     }).pipe(map(response => {
         if (response.ok) {
-          this.setToken(response.body?.authorization as string);
+          this.setToken(response.body?.authorization!);
           this._isAuthenticated.next(true);
         }
         return response;
@@ -34,6 +35,17 @@ export class AuthenticationService {
 
   googleAuthUrl() {
     return `${environment.BASE_URL}/users/googleAuth`;
+  }
+
+  checkAuthorizationUrl(route: ActivatedRouteSnapshot) {
+    if (this.isAuthenticated()) {
+      return;
+    }
+    const authorization = route.queryParams['authorization'];
+    if (authorization) {
+      this.setToken(authorization);
+      this._isAuthenticated.next(true);
+    }
   }
 
   logout() {
