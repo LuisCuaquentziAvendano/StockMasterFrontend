@@ -11,7 +11,7 @@ export function AuthenticationGuard(expectedIsAuthenticated: boolean) {
       state.url.startsWith('/inventories')
       && authService.authorizationInUrl(route)
     ) {
-      router.navigateByUrl('/inventories')
+      router.navigateByUrl('/login')
     }
     if (authService.isAuthenticated() != expectedIsAuthenticated) {
       if (!authService.isAuthenticated()) {
