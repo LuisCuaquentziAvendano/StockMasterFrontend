@@ -37,15 +37,17 @@ export class AuthenticationService {
     return `${environment.BASE_URL}/users/googleAuth`;
   }
 
-  checkAuthorizationUrl(route: ActivatedRouteSnapshot) {
+  authorizationInUrl(route: ActivatedRouteSnapshot) {
     if (this.isAuthenticated()) {
-      return;
+      return false;
     }
     const authorization = route.queryParams['authorization'];
-    if (authorization) {
-      this.setToken(authorization);
-      this._isAuthenticated.next(true);
+    if (!authorization) {
+      return false;
     }
+    this.setToken(authorization);
+    this._isAuthenticated.next(true);
+    return true;
   }
 
   logout() {

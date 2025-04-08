@@ -7,8 +7,11 @@ export function AuthenticationGuard(expectedIsAuthenticated: boolean) {
   const guard: CanActivateFn = (route, state) => {
     const router = inject(Router);
     const authService = inject(AuthenticationService);
-    if (state.url.startsWith('/inventories')) {
-      authService.checkAuthorizationUrl(route);
+    if (
+      state.url.startsWith('/inventories')
+      && authService.authorizationInUrl(route)
+    ) {
+      router.navigateByUrl('/inventories')
     }
     if (authService.isAuthenticated() != expectedIsAuthenticated) {
       if (!authService.isAuthenticated()) {
