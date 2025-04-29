@@ -1,77 +1,133 @@
-<!-- @if (inventory) {
-    <p>{{inventory.id}}</p>
-} -->
+<p *ngIf="inventory">Inventory ID: {{ inventory.id }}</p>
+
 <div id="main">
   <h3>Products</h3>
   <p>Search, edit or delete a product:</p>
+
   <div class="search">
-    <input type="text" placeholder="Search ID" />
-    <button class="search-button">Search</button>
+    <input
+      type="text"
+      placeholder="Search ID"
+      [(ngModel)]="searchId"
+      name="searchId"
+    />
+    <button class="search-button" (click)="onSearchById()">Search</button>
   </div>
+
+  <div *ngIf="foundProduct">
+    <h4>Product Found:</h4>
+    <p><strong>Name:</strong> {{ foundProduct.name }}</p>
+    <p><strong>Description:</strong> {{ foundProduct.description }}</p>
+    <p><strong>Price:</strong> {{ foundProduct.price }}</p>
+    <p><strong>Category:</strong> {{ foundProduct.category }}</p>
+    <p><strong>Stock:</strong> {{ foundProduct.stock }}</p>
+  </div>
+
   <p>Search products by query</p>
   <div class="search">
-    <input type="text" placeholder="Search query" />
-    <button class="search-button">Search</button>
+    <input
+      type="text"
+      placeholder="Search query"
+      [(ngModel)]="searchQuery"
+      name="searchQuery"
+    />
+    <button class="search-button" (click)="onSearchByQuery()">Search</button>
   </div>
+
+  <div *ngIf="foundProducts.length > 0">
+    <h4>Products Found:</h4>
+    <ul>
+      <li *ngFor="let p of foundProducts">
+        {{ p.name }} - {{ p.category }} - ${{ p.price }}
+      </li>
+    </ul>
+  </div>
+
   <h3>Create product</h3>
 </div>
+
 <div id="create-product">
-  <form>
+  <form [formGroup]="productForm" (ngSubmit)="onCreateProduct()">
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Enter product name" />
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Enter product name"
+      />
     </div>
+
     <div class="form-group">
       <label for="description">Description</label>
       <input
         type="text"
         id="description"
+        formControlName="description"
         placeholder="Enter product description"
       />
     </div>
+
     <div class="form-group">
       <label for="price">Price</label>
-      <input type="number" id="price" placeholder="Enter product price" />
+      <input
+        type="number"
+        id="price"
+        formControlName="price"
+        placeholder="Enter product price"
+      />
     </div>
+
     <div class="form-group">
       <label for="category">Category</label>
-      <input type="text" id="category" placeholder="Enter product category" />
+      <input
+        type="text"
+        id="category"
+        formControlName="category"
+        placeholder="Enter product category"
+      />
     </div>
+
     <div class="form-group">
       <label for="tags">Tags</label>
-      <textarea id="tags" placeholder="Enter product tags"></textarea>
+      <textarea
+        id="tags"
+        formControlName="tags"
+        placeholder="Enter product tags"
+      ></textarea>
     </div>
+
     <div class="form-group">
       <label for="date_added">Date Added</label>
-      <input type="datetime-local" id="date_added" />
+      <input
+        type="datetime-local"
+        id="date_added"
+        formControlName="date_added"
+      />
     </div>
+
     <div class="form-group">
       <label>Is Featured</label>
       <div class="checkbox-group">
-        <label for="is_featured_yes">
-          <input
-            type="radio"
-            id="is_featured_yes"
-            name="is_featured"
-            value="yes"
-          />
-          Yes
+        <label>
+          <input type="radio" value="yes" formControlName="is_featured" /> Yes
         </label>
-        <label for="is_featured_no">
-          <input
-            type="radio"
-            id="is_featured_no"
-            name="is_featured"
-            value="no"
-          />
-          No
+        <label>
+          <input type="radio" value="no" formControlName="is_featured" /> No
         </label>
       </div>
     </div>
+
     <div class="form-group">
       <label for="stock">Stock</label>
-      <input type="number" id="stock" placeholder="Enter stock quantity" />
+      <input
+        type="number"
+        id="stock"
+        formControlName="stock"
+        placeholder="Enter stock quantity"
+      />
     </div>
+
     <button type="submit" class="create-button">Create Product</button>
   </form>
 </div>
