@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../types/user';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { HttpService } from './http.service';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';

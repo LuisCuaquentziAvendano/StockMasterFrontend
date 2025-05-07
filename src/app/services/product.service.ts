@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from '../types/product';
 import { HttpService } from './http.service';
 import { AuthenticationService } from './authentication.service';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { HttpResponse } from '@angular/common/http';
 import { map, Observable, of, switchMap } from 'rxjs';
 

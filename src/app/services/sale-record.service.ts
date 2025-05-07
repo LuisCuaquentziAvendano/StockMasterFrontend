@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { HttpService } from './http.service';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { SaleRecord } from '../types/sale-record';
 import { HttpResponse } from '@angular/common/http';
 

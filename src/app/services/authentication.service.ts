@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { HttpService } from './http.service';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
 @Injectable({
