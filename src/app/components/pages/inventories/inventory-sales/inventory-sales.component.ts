@@ -81,9 +81,7 @@ export class InventorySalesComponent {
     this.saleService.getSales(this.inventory.id).subscribe(response => {
       if (response.ok) {
         this.sales = response.body!;
-      } else {
-        responseHandler(response, this.router, this.authService);
-      }
+      } 
     })
   }
 
@@ -160,8 +158,6 @@ export class InventorySalesComponent {
     this.saleService.refundPurchase(this.inventory.id, sale._id!).subscribe(response => {
       if (response.ok) {
         this.getSales();
-      } else {
-        responseHandler(response, this.router, this.authService);
       }
     })
   }

@@ -1,4 +1,7 @@
 @import "../../../utils/styles.scss";
+* {
+    @include flex-vertical(center, center, 1rem);
+}
 
 section {
     @include flex-horizontal(space-evenly, center, 1rem);

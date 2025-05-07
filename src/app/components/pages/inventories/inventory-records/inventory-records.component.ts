@@ -99,8 +99,6 @@ export class InventoryRecordsComponent {
     this.saleRecordService.getAllSalesRecords(this.inventory.id).subscribe(response => {
       if (response.ok) {
         this.saleRecords = response.body!;
-      } else {
-        responseHandler(response, this.router, this.authService);
       }
     })
   }

@@ -31,7 +31,7 @@ export class InventorySchemaComponent {
     type: 'string',
     visible: true
   };
-  typeOptions = ['string', 'number', 'float', 'boolean', 'array', 'object', 'date'];
+  typeOptions = ['integer', 'float', 'string', 'boolean', 'array', 'datetime', 'image'];
 
   constructor(
     private router: Router,
@@ -122,7 +122,7 @@ export class InventorySchemaComponent {
 
   isFieldVisible(field: string): boolean {
     if (!this.inventory || !this.inventory.fields) return false;
-    return this.inventory.fields[field]?.visible || false;
+    return this.inventory.fields[field]?.visible;
   }
 
   toggleAddFieldForm(): void {

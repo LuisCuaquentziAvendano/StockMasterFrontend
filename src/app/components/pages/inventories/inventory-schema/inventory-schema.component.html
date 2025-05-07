@@ -32,11 +32,15 @@
                     </td>
 
                     <td>
-                        <select [disabled]="editing !== field" [ngClass]="{ 'edit-input': editing === field }"
-                            [(ngModel)]="fieldBeingEdited.visible" [value]="isFieldVisible(field)">
-                            <option [value]="true">true</option>
-                            <option [value]="false">false</option>
-                        </select>
+                        <ng-container *ngIf="editing === field; else visibleDisplay">
+                            <select [(ngModel)]="fieldBeingEdited.visible" class="edit-input">
+                                <option [ngValue]="true">true</option>
+                                <option [ngValue]="false">false</option>
+                            </select>
+                        </ng-container>
+                        <ng-template #visibleDisplay>
+                            <p>{{ isFieldVisible(field) }}</p>
+                        </ng-template>
                     </td>
 
                     <td>
