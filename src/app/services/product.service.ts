@@ -129,6 +129,16 @@ export class ProductService {
   }
 
   private formatProduct(product: Product) {
+    Object.keys(product.fields).forEach(field => {
+      if (typeof product.fields[field] == 'string') {
+        product.fields[field] = product.fields[field]
+          .replaceAll(/&(amp;)+/g, '&')
+          .replaceAll(/&(lt;)+/g, '<')
+          .replaceAll(/&(gt;)+/g, '>')
+          .replaceAll(/&(quot;)+/g, '"')
+          .replaceAll(/&(#39;)+/g, "'");
+      }
+    });
     const newProduct = product as Record<string, any>;
     const items = {
       id: newProduct['product'],

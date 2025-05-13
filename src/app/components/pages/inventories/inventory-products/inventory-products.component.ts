@@ -1,8 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Validators } from '@angular/forms';
 
 import { Inventory } from '../../../../types/inventory';
 import { AuthenticationService } from '../../../../services/authentication.service';
@@ -50,25 +49,25 @@ export class InventoryProductsComponent {
     });
 
     this.productForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      price: ['', Validators.required],
-      category: ['', Validators.required],
-      tags: ['', Validators.required],
-      date_added: ['', Validators.required],
-      is_featured: ['no', Validators.required],
-      stock: ['', Validators.required],
+      name: [''],
+      description: [''],
+      price: [''],
+      category: [''],
+      tags: [''],
+      date_added: [''],
+      is_featured: ['no'],
+      stock: [''],
     });
 
     this.productFormUpdate = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      price: ['', Validators.required],
-      category: ['', Validators.required],
-      tags: ['', Validators.required],
-      date_added: ['', Validators.required],
-      is_featured: ['no', Validators.required],
-      stock: ['', Validators.required],
+      name: [''],
+      description: [''],
+      price: [''],
+      category: [''],
+      tags: [''],
+      date_added: [''],
+      is_featured: ['no'],
+      stock: [''],
   });
   }
 
@@ -179,7 +178,7 @@ onUpdateProduct() {
     return;
   }
 
-  const formValue = this.productForm.value;
+  const formValue = this.productFormUpdate.value;
   const formData = new FormData();
 
   formData.append('name', formValue.name);
