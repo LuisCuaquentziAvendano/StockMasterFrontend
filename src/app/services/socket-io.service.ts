@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { BehaviorSubject } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,9 @@ export class SocketIoService {
 
   private addNotification(message: string) {
     const current = this.notificationsSubject.value;
-    this.notificationsSubject.next([message, ...current]);
+    const date = new Date();
+    const formatted = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
+    this.notificationsSubject.next([`${message} (${formatted})`, ...current]);
   }
 
   getSocketId(): string | undefined {

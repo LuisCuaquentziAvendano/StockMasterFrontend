@@ -3,7 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 import { HttpService } from './http.service';
 import { PurchasedProduct, Sale } from '../types/sale';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
